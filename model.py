@@ -12,7 +12,7 @@ class PaLMConfig:
     n_layer: int = 32
     n_head: int = 16
     seq_len: int = 2048
-    vocab_size: int = -1
+    vocab_size: int = 256000
 
 
 def precompute_freqs_cis(dim: int, end: int, theta: float = 10000.0) -> torch.Tensor:
@@ -141,7 +141,8 @@ class PaLM(nn.Module):
         return x
 
 
-config = PaLMConfig(vocab_size=256000) # 262144
-model = PaLM(config)
+if __name__ == "__main__":
+    config = PaLMConfig()
+    model = PaLM(config)
 
-print(f"{sum(p.numel() for p in model.parameters()):,}")
+    print(f"{sum(p.numel() for p in model.parameters()):,}")
